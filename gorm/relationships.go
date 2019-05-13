@@ -7,7 +7,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
-type User struct {
+type User02 struct {
 	gorm.Model
 	UserName 	string
 	FirstName 	string
@@ -19,10 +19,10 @@ type Calendar struct {
 	gorm.Model
 	Name 	string
 	UserID 	uint // One-to-One
-	Appointment []Appointment `gorm:"polymorphic:owner"` // One-to-Many   // Polymorphism
+	Appointment []Appointment01 `gorm:"polymorphic:owner"` // One-to-Many   // Polymorphism
 }
 
-type Appointment struct {
+type Appointment01 struct {
 	gorm.Model
 	Subject		string
 	Description	string
@@ -31,13 +31,13 @@ type Appointment struct {
 	// CalendarID	uint // One-to-Many
 	OwnerID 	uint	// Polymorphism
 	OwnerType	string	// Polymorphism
-	Attendess	[]User	`gorm:"many2many:appointment_user"` // Many-to-Many
+	Attendess	[]User02	`gorm:"many2many:appointment_user"` // Many-to-Many
 }
 
 // Polymorphism
 type TaskList struct {
 	gorm.Model
-	Appointment []Appointment `gorm:"polymorphic:owner"`
+	Appointment []Appointment01 `gorm:"polymorphic:owner"`
 }
 
 /*
@@ -60,8 +60,8 @@ func Relationship() {
 	db.CreateTable(&User{})
 	db.DropTable(&Calendar{})
 	db.CreateTable(&Calendar{})
-	db.DropTable(&Appointment{})
-	db.CreateTable(&Appointment{})
+	db.DropTable(&Appointment01{})
+	db.CreateTable(&Appointment01{})
 
 	// 1. One-to-One: insert data to User & Calendar Tables
 		// db.Debug().Save(&User{
@@ -122,7 +122,7 @@ func Relationship() {
 		// 	})
 	
 	// 5. Polymorphism
-		users := []User{
+		users := []User02{
 			{UserName: "fprefect"},
 			{UserName: "tmacillan"},
 			{UserName: "mrobot"},
@@ -132,11 +132,11 @@ func Relationship() {
 			db.Save(&users[i])
 		} 
 
-		db.Debug().Save(&User{
+		db.Debug().Save(&User02{
 				UserName: "Be Chip",
 				Calendar: Calendar{
 					Name: "Improbable Events",
-					Appointment: []Appointment{
+					Appointment: []Appointment01{
 						{Subject: "Spontaneous Whale Generation", Attendess: users},
 						{Subject: "Saved from Vaccuum of Space", Attendess: users},
 					},

@@ -17,11 +17,11 @@ type User01 struct {
 	TempField 	bool 	`sql:"-"`				 // Transient Fields ==> not create in db field
 }
 
-var users []User = []User {
-	User {UserName: "TrungLv", FirstName: "LeVan", LastName: "Trung"},
-	User {UserName: "adent", FirstName: "Ford", LastName: "Prefect"},
-	User {UserName: "tmacmillan", FirstName: "Tricia", LastName: "MacMillan"},
-	User {UserName: "mrobot", FirstName: "Marvin", LastName: "Robot"},
+var users []User01 = []User01 {
+	User01 {UserName: "TrungLv", FirstName: "LeVan", LastName: "Trung"},
+	User01 {UserName: "adent", FirstName: "Ford", LastName: "Prefect"},
+	User01 {UserName: "tmacmillan", FirstName: "Tricia", LastName: "MacMillan"},
+	User01 {UserName: "mrobot", FirstName: "Marvin", LastName: "Robot"},
 }
 
 /*
